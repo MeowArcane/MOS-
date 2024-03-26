@@ -1,0 +1,159 @@
+//MOS
+var Version = 0;
+var Subversion = 1;
+var Subsubversion = 1;
+var VersionText = ((((((("Version " + Version) + ".") + Subversion) + ".") + Subsubversion) + "\n Build ") + "6") + "";
+var Beta = 1;
+var SCR = "MOS.Boot";
+console.log("Korishmo Technology Pre-release Operating System Modular-OS " + Version + "."+Subversion+"."+Subsubversion);
+console.log("This tool is only for developers, if someone asked to type something here, it could make your device unbootable");
+//DO NOT MODIFY!
+function Supersetscreen(scr) {
+  SCR = scr;
+  setScreen(scr);
+}
+//Boot Modular-OS 
+MOSBoot();
+timedLoop(100, function() {
+  setText("MOS.Homescreen.Time", (SOA.gettime() + "                      ") + SOA.getdate());
+  if (Beta == 1) {
+    setText("MOS.Settings.About.Background", ("About \n \n \n" + VersionText) + "\n Beta Build .idex-1");
+  } else {
+    setText("MOS.Settings.About.Background", ("About \n \n \n" + VersionText) + "");
+  }
+});
+function MOSBoot() {
+  setTimeout(function() {
+    Supersetscreen("MOS.Homescreen");
+  }, 370);
+}
+//Open Apps (Icons)
+onEvent("MOS.Homescreen.icon.1", "click", function( ) {
+  Supersetscreen("MOS.Settings");
+});
+//Close Apps (Bars)
+onEvent("MOS.Settings.Bar.Back", "click", function( ) {
+  Supersetscreen("MOS.Homescreen");
+});
+//App menus (Settings)
+onEvent("MOS.Settings.Button.1", "click", function( ) {
+  Supersetscreen("MOS.Settings.Wallpapers");
+});
+onEvent("MOS.Settings.Advanced.Button.1", "click", function( ) {
+  Supersetscreen("MOS.Settings.Customizer");
+});
+onEvent("MOS.Settings.Button.3", "click", function( ) {
+  Supersetscreen("MOS.Settings.Advanced");
+});
+onEvent("MOS.Settings.Advanced.Bar.Back", "click", function( ) {
+  Supersetscreen("MOS.Settings");
+});
+onEvent("MOS.Settings.Advanced.Button.2", "click", function( ) {
+  Supersetscreen("MOS.Settings.OtherOSSetup0");
+});
+onEvent("MOS.Settings.OOS.Bar.Back", "click", function( ) {
+  Supersetscreen("MOS.Settings");
+});
+onEvent("MOS.Settings.OOS.SetUp", "click", function( ) {
+  Supersetscreen("MOS.Settings.OtherOSSetup1");
+});
+onEvent("MOS.Settings.OOSS1.Bar.Back", "click", function( ) {
+  Supersetscreen("MOS.Settings");
+});
+onEvent("MOS.Settings.Customizer.Bar.Back", "click", function( ) {
+  Supersetscreen("MOS.Settings");
+});
+onEvent("MOS.Settings.Button.2", "click", function( ) {
+  Supersetscreen("MOS.Settings.About");
+});
+onEvent("MOS.Settings.About.Bar.Back", "click", function( ) {
+  Supersetscreen("MOS.Settings");
+});
+onEvent("MOS.Settings.Customizer.Scale.AppScale", "input", function( ) {
+  textScale(getProperty("MOS.Settings.Customizer.Scale.AppScale", "value"));
+});
+onEvent("MOS.Settings.Customizer.Scale.RGB.R", "input", function( ) {
+  iconColor(getProperty("MOS.Settings.Customizer.Scale.RGB.R", "value"), getProperty("MOS.Settings.Customizer.Scale.RGB.G", "value"), getProperty("MOS.Settings.Customizer.Scale.RGB.B", "value"));
+});
+onEvent("MOS.Settings.Customizer.Scale.RGB.G", "input", function( ) {
+  iconColor(getProperty("MOS.Settings.Customizer.Scale.RGB.R", "value"), getProperty("MOS.Settings.Customizer.Scale.RGB.G", "value"), getProperty("MOS.Settings.Customizer.Scale.RGB.B", "value"));
+});
+onEvent("MOS.Settings.Customizer.Scale.RGB.B", "input", function( ) {
+  iconColor(getProperty("MOS.Settings.Customizer.Scale.RGB.R", "value"), getProperty("MOS.Settings.Customizer.Scale.RGB.G", "value"), getProperty("MOS.Settings.Customizer.Scale.RGB.B", "value"));
+});
+onEvent("MOS.Settings.Customizer.Scale.IconSize", "input", function( ) {
+  iconSize(getProperty("MOS.Settings.Customizer.Scale.IconSize", "value"));
+});
+onEvent("MOS.Settings.Wallpapers.Bar.Back", "click", function( ) {
+  Supersetscreen("MOS.Settings");
+});
+onEvent("MOS.Settings.Wallpapers.Wallpaper.01", "click", function( ) {
+  wallpaper("wallpaper1-mos.png");
+});
+onEvent("MOS.Settings.Wallpapers.Wallpaper.02", "click", function( ) {
+  wallpaper("wallpaper2-mos.png");
+});
+onEvent("MOS.Settings.Wallpapers.Wallpaper.03", "click", function( ) {
+  wallpaper("wallpaper3-mos.png");
+});
+onEvent("MOS.Settings.Wallpapers.Wallpaper.04", "click", function( ) {
+  wallpaper("wallpaper4-mos.png");
+});
+function wallpaper(img) {
+  setProperty("MOS.Homescreen", "image", img);
+  setProperty("MOS.Settings", "image", img);
+  setProperty("MOS.Settings.About", "image", img);
+  setProperty("MOS.Settings.Advanced", "image", img);
+  setProperty("MOS.Settings.Customizer", "image", img);
+  setProperty("MOS.Settings.Wallpapers", "image", img);
+  setProperty("MOS.Settings.Wallpapers", "image", img);
+}
+function textScale(fs) {
+  setProperty("MOS.Settings.Customizer.Label.1", "font-size", fs);
+  setProperty("MOS.Settings.Button.1", "font-size", fs);
+  setProperty("MOS.Settings.Button.2", "font-size", fs);
+  setProperty("MOS.Settings.About.Background", "font-size", fs);
+  setProperty("MOS.Settings.Background", "font-size", fs);
+  setProperty("MOS.Settings.Customizer.Background", "font-size", fs);
+  setProperty("MOS.Homescreen.icon.1", "font-size", fs);
+  setProperty("MOS.Settings.Customizer.Label.2", "font-size", fs);
+  setProperty("MOS.Settings.Customizer.Label.3", "font-size", fs);
+  setProperty("MOS.Settings.Advanced.Button.1", "font-size", fs);
+  setProperty("MOS.Settings.Advanced.Button.2", "font-size", fs);
+  setProperty("MOS.Settings.Advanced.Button.3", "font-size", fs);
+  setProperty("MOS.Settings.Background", "font-size", fs);
+  setProperty("MOS.Settings.Button.3", "font-size", fs);
+  setProperty("MOS.Settings.Customizer.Scale.AppScale", "width", fs * 3.667);
+  setProperty("MOS.Settings.Customizer.Scale.RGB.R", "width", fs * 3.667);
+  setProperty("MOS.Settings.Customizer.Scale.RGB.G", "width", fs * 3.667);
+  setProperty("MOS.Settings.Customizer.Scale.RGB.B", "width", fs * 3.667);
+  setProperty("MOS.Settings.Customizer.Scale.IconSize", "width", fs * 3.667);
+}
+function iconColor(r, g, b) {
+  setProperty("MOS.Homescreen.icon.1", "icon-color", rgb(r,g,b));
+  setProperty("MOS.Homescreen.icon.2", "icon-color", rgb(r,g,b));
+  setProperty("MOS.Homescreen.icon.3", "icon-color", rgb(r,g,b));
+  setProperty("MOS.Homescreen.icon.4", "icon-color", rgb(r,g,b));
+  setProperty("MOS.Homescreen.icon.5", "icon-color", rgb(r,g,b));
+  setProperty("MOS.Homescreen.icon.6", "icon-color", rgb(r,g,b));
+  setProperty("MOS.Homescreen.icon.7", "icon-color", rgb(r,g,b));
+  setProperty("MOS.Homescreen.icon.8", "icon-color", rgb(r,g,b));
+}
+function iconSize(size) {
+  setProperty("MOS.Homescreen.icon.1", "width", size);
+  setProperty("MOS.Homescreen.icon.2", "width", size);
+  setProperty("MOS.Homescreen.icon.3", "width", size);
+  setProperty("MOS.Homescreen.icon.4", "width", size);
+  setProperty("MOS.Homescreen.icon.5", "width", size);
+  setProperty("MOS.Homescreen.icon.6", "width", size);
+  setProperty("MOS.Homescreen.icon.7", "width", size);
+  setProperty("MOS.Homescreen.icon.8", "width", size);
+  setProperty("MOS.Homescreen.icon.1", "height", size);
+  setProperty("MOS.Homescreen.icon.2", "height", size);
+  setProperty("MOS.Homescreen.icon.3", "height", size);
+  setProperty("MOS.Homescreen.icon.4", "height", size);
+  setProperty("MOS.Homescreen.icon.5", "height", size);
+  setProperty("MOS.Homescreen.icon.6", "height", size);
+  setProperty("MOS.Homescreen.icon.7", "height", size);
+  setProperty("MOS.Homescreen.icon.8", "height", size);
+}
