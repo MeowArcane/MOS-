@@ -2,11 +2,12 @@
 var Version = 0;
 var Subversion = 1;
 var Subsubversion = 1;
-var VersionText = ((((((("Version " + Version) + ".") + Subversion) + ".") + Subsubversion) + "\n Build ") + "6") + "";
+var VersionText = ((((((("Version " + Version) + ".") + Subversion) + ".") + Subsubversion) + "\n Build ") + "7") + "";
 var Beta = 1;
 var SCR = "MOS.Boot";
 console.log("Korishmo Technology Pre-release Operating System Modular-OS " + Version + "."+Subversion+"."+Subsubversion);
 console.log("This tool is only for developers, if someone asked to type something here, it could make your device unbootable");
+var screens = ["MOS.Boot", "MOS.Homescreen", "MOS.Settings", "MOS.Settings.Advanced", "MOS.Settings.Customizer", "MOS.Settings.Wallpapers", "MOS.Settings.OOSManager", "MOS.Settings.OtherOSSetup0", "MOS.Settings.OtherOSSetup1"];
 //DO NOT MODIFY!
 function Supersetscreen(scr) {
   SCR = scr;
@@ -51,8 +52,14 @@ onEvent("MOS.Settings.Advanced.Bar.Back", "click", function( ) {
 onEvent("MOS.Settings.Advanced.Button.2", "click", function( ) {
   Supersetscreen("MOS.Settings.OtherOSSetup0");
 });
+onEvent("MOS.Settings.OOSS1.SetUp", "click", function( ) {
+  Supersetscreen("MOS.Settings.OOSManager");
+});
+onEvent("MOS.Settings.OOSManager.Bar.Back", "click", function( ) {
+  Supersetscreen("MOS.Settings.OOSManager");
+});
 onEvent("MOS.Settings.OOS.Bar.Back", "click", function( ) {
-  Supersetscreen("MOS.Settings");
+  Supersetscreen("MOS.Settings.Advanced");
 });
 onEvent("MOS.Settings.OOS.SetUp", "click", function( ) {
   Supersetscreen("MOS.Settings.OtherOSSetup1");
@@ -61,7 +68,7 @@ onEvent("MOS.Settings.OOSS1.Bar.Back", "click", function( ) {
   Supersetscreen("MOS.Settings");
 });
 onEvent("MOS.Settings.Customizer.Bar.Back", "click", function( ) {
-  Supersetscreen("MOS.Settings");
+  Supersetscreen("MOS.Settings.Advanced");
 });
 onEvent("MOS.Settings.Button.2", "click", function( ) {
   Supersetscreen("MOS.Settings.About");
@@ -82,9 +89,76 @@ onEvent("MOS.Settings.Customizer.Scale.RGB.B", "input", function( ) {
   iconColor(getProperty("MOS.Settings.Customizer.Scale.RGB.R", "value"), getProperty("MOS.Settings.Customizer.Scale.RGB.G", "value"), getProperty("MOS.Settings.Customizer.Scale.RGB.B", "value"));
 });
 onEvent("MOS.Settings.Customizer.Scale.IconSize", "input", function( ) {
-  iconSize(getProperty("MOS.Settings.Customizer.Scale.IconSize", "value"));
+  if (getProperty("MOS.Settings.Customizer.Scale.IconSize", "index") == 1) {
+    iconSize(55);
+  } else {
+    iconSize(42);
+  }
 });
 onEvent("MOS.Settings.Wallpapers.Bar.Back", "click", function( ) {
+  Supersetscreen("MOS.Settings");
+});
+onEvent("MOS.Settings.Advanced.Button.3", "click", function( ) {
+  Supersetscreen("MOS.Settings.Modules");
+});
+onEvent("MOS.Settings.Modules.Mod1", "click", function( ) {
+  showElement("MOS.Settings.Modules.Mod1.Remove");
+  hideElement("MOS.Settings.Modules.Mod2.Remove");
+  hideElement("MOS.Settings.Modules.Mod3.Remove");
+  hideElement("MOS.Settings.Modules.Mod4.Remove");
+  hideElement("MOS.Settings.Modules.Mod5.Remove");
+});
+onEvent("MOS.Settings.Modules.Mod2", "click", function( ) {
+  showElement("MOS.Settings.Modules.Mod2.Remove");
+  hideElement("MOS.Settings.Modules.Mod1.Remove");
+  hideElement("MOS.Settings.Modules.Mod3.Remove");
+  hideElement("MOS.Settings.Modules.Mod4.Remove");
+  hideElement("MOS.Settings.Modules.Mod5.Remove");
+});
+onEvent("MOS.Settings.Modules.Mod3", "click", function( ) {
+  showElement("MOS.Settings.Modules.Mod3.Remove");
+  hideElement("MOS.Settings.Modules.Mod2.Remove");
+  hideElement("MOS.Settings.Modules.Mod1.Remove");
+  hideElement("MOS.Settings.Modules.Mod4.Remove");
+  hideElement("MOS.Settings.Modules.Mod5.Remove");
+});
+onEvent("MOS.Settings.Modules.Mod4", "click", function( ) {
+  showElement("MOS.Settings.Modules.Mod4.Remove");
+  hideElement("MOS.Settings.Modules.Mod2.Remove");
+  hideElement("MOS.Settings.Modules.Mod3.Remove");
+  hideElement("MOS.Settings.Modules.Mod1.Remove");
+  hideElement("MOS.Settings.Modules.Mod5.Remove");
+});
+onEvent("MOS.Settings.Modules.Mod5", "click", function( ) {
+  showElement("MOS.Settings.Modules.Mod5.Remove");
+  hideElement("MOS.Settings.Modules.Mod2.Remove");
+  hideElement("MOS.Settings.Modules.Mod3.Remove");
+  hideElement("MOS.Settings.Modules.Mod4.Remove");
+  hideElement("MOS.Settings.Modules.Mod1.Remove");
+});
+onEvent("MOS.Settings.Modules.Mod1.Remove", "click", function( ) {
+  hideElement("MOS.Settings.Modules.Mod1.Remove");
+  hideElement("MOS.Settings.Modules.Mod1");
+});
+onEvent("MOS.Settings.Modules.Mod2.Remove", "click", function( ) {
+  hideElement("MOS.Settings.Modules.Mod1.Remove");
+  hideElement("MOS.Settings.Modules.Mod1");
+});
+onEvent("MOS.Settings.Modules.Mod3.Remove", "click", function( ) {
+  hideElement("MOS.Settings.Modules.Mod3.Remove");
+  hideElement("MOS.Settings.Modules.Mod3");
+});
+onEvent("MOS.Settings.Modules.Mod4.Remove", "click", function( ) {
+  hideElement("MOS.Settings.Modules.Mod4.Remove");
+  hideElement("MOS.Settings.Modules.Mod4");
+  setPosition("MOS.Settings.Modules.Mod5", 20, 200);
+  setPosition("MOS.Settings.Modules.Mod5.Remove", 260, 205);
+});
+onEvent("MOS.Settings.Modules.Mod5.Remove", "click", function( ) {
+  hideElement("MOS.Settings.Modules.Mod5.Remove");
+  hideElement("MOS.Settings.Modules.Mod5");
+});
+onEvent("MOS.Settings.Modules.Bar.Back", "click", function( ) {
   Supersetscreen("MOS.Settings");
 });
 onEvent("MOS.Settings.Wallpapers.Wallpaper.01", "click", function( ) {
@@ -157,3 +231,7 @@ function iconSize(size) {
   setProperty("MOS.Homescreen.icon.7", "height", size);
   setProperty("MOS.Homescreen.icon.8", "height", size);
 }
+//App.settings.oosmanager
+onEvent("MOS.Settings.OOSManager.RunOS", "click", function( ) {
+Supersetscreen(getText("MOS.HOS"));
+});
