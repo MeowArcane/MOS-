@@ -2,12 +2,11 @@
 var Version = 0;
 var Subversion = 2;
 var Subsubversion = 0;
-var VersionText = ((((((("Version " + Version) + ".") + Subversion) + ".") + Subsubversion) + "\n Build ") + "8") + "";
+var VersionText = ((((((("Version " + Version) + ".") + Subversion) + ".") + Subsubversion) + "\n Build ") + "10") + "";
 var Beta = 1;
 var SCR = "MOS.Boot";
 console.log("Korishmo Technology Pre-release Operating System Modular-OS " + Version + "."+Subversion+"."+Subsubversion);
 console.log("This tool is only for developers, if someone asked to type something here, it could make your device unbootable");
-var screens = ["MOS.Boot", "MOS.Homescreen", "MOS.Settings", "MOS.Settings.Advanced", "MOS.Settings.Customizer", "MOS.Settings.Wallpapers", "MOS.Settings.OOSManager", "MOS.Settings.OtherOSSetup0", "MOS.Settings.OtherOSSetup1"];
 //DO NOT MODIFY!
 function Supersetscreen(scr) {
   SCR = scr;
@@ -18,9 +17,9 @@ MOSBoot();
 timedLoop(100, function() {
   setText("MOS.Homescreen.Time", (SOA.gettime() + "                      ") + SOA.getdate());
   if (Beta == 1) {
-    setText("MOS.Settings.About.Background", ("About \n \n \n" + VersionText) + "\n Beta Build .idex-1");
+    setText("MOS.Settings.About.Background", ("About \n \n \n" + VersionText) + "\n Beta Build .idex-1" + "\n \n This OS is made with open source projects like SOA!");
   } else {
-    setText("MOS.Settings.About.Background", ("About \n \n \n" + VersionText) + "");
+    setText("MOS.Settings.About.Background", ("About \n \n \n" + VersionText) +  "\n \n This OS is made with open source projects like SOA!");
   }
 });
 function MOSBoot() {
@@ -252,6 +251,7 @@ onEvent("MOS.Appstore.Music.Uninstall", "click", function( ) {
   hideElement("MOS.Homescreen.icon.3");
   showElement("MOS.Appstore.Music.Install");
   hideElement("MOS.Appstore.Music.Uninstall");
+  stopSound();
 });
 //App.music
 onEvent("MOS.Music.Song.Stop", "click", function( ) {
@@ -260,4 +260,3 @@ onEvent("MOS.Music.Song.Stop", "click", function( ) {
 onEvent("MOS.Music.Song.1", "click", function( ) {
   playSound("music1-mos.mp3", false);
 });
-
