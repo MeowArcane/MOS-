@@ -1,8 +1,8 @@
 //MOS
 var Version = 0;
-var Subversion = 1;
-var Subsubversion = 1;
-var VersionText = ((((((("Version " + Version) + ".") + Subversion) + ".") + Subsubversion) + "\n Build ") + "7") + "";
+var Subversion = 2;
+var Subsubversion = 0;
+var VersionText = ((((((("Version " + Version) + ".") + Subversion) + ".") + Subsubversion) + "\n Build ") + "8") + "";
 var Beta = 1;
 var SCR = "MOS.Boot";
 console.log("Korishmo Technology Pre-release Operating System Modular-OS " + Version + "."+Subversion+"."+Subsubversion);
@@ -32,8 +32,20 @@ function MOSBoot() {
 onEvent("MOS.Homescreen.icon.1", "click", function( ) {
   Supersetscreen("MOS.Settings");
 });
+onEvent("MOS.Homescreen.icon.2", "click", function( ) {
+  Supersetscreen("MOS.Appstore");
+});
+onEvent("MOS.Homescreen.icon.3", "click", function( ) {
+  Supersetscreen("MOS.Music");
+});
 //Close Apps (Bars)
 onEvent("MOS.Settings.Bar.Back", "click", function( ) {
+  Supersetscreen("MOS.Homescreen");
+});
+onEvent("MOS.Appstore.Bar.Back", "click", function( ) {
+  Supersetscreen("MOS.Homescreen");
+});
+onEvent("MOS.Music.Bar.Back", "click", function( ) {
   Supersetscreen("MOS.Homescreen");
 });
 //App menus (Settings)
@@ -197,11 +209,6 @@ function textScale(fs) {
   setProperty("MOS.Settings.Advanced.Button.3", "font-size", fs);
   setProperty("MOS.Settings.Background", "font-size", fs);
   setProperty("MOS.Settings.Button.3", "font-size", fs);
-  setProperty("MOS.Settings.Customizer.Scale.AppScale", "width", fs * 3.667);
-  setProperty("MOS.Settings.Customizer.Scale.RGB.R", "width", fs * 3.667);
-  setProperty("MOS.Settings.Customizer.Scale.RGB.G", "width", fs * 3.667);
-  setProperty("MOS.Settings.Customizer.Scale.RGB.B", "width", fs * 3.667);
-  setProperty("MOS.Settings.Customizer.Scale.IconSize", "width", fs * 3.667);
 }
 function iconColor(r, g, b) {
   setProperty("MOS.Homescreen.icon.1", "icon-color", rgb(r,g,b));
@@ -235,3 +242,22 @@ function iconSize(size) {
 onEvent("MOS.Settings.OOSManager.RunOS", "click", function( ) {
 Supersetscreen(getText("MOS.HOS"));
 });
+//App.appstore
+onEvent("MOS.Appstore.Music.Install", "click", function( ) {
+  showElement("MOS.Appstore.Music.Uninstall");
+  hideElement("MOS.Appstore.Music.Install");
+  showElement("MOS.Homescreen.icon.3");
+});
+onEvent("MOS.Appstore.Music.Uninstall", "click", function( ) {
+  hideElement("MOS.Homescreen.icon.3");
+  showElement("MOS.Appstore.Music.Install");
+  hideElement("MOS.Appstore.Music.Uninstall");
+});
+//App.music
+onEvent("MOS.Music.Song.Stop", "click", function( ) {
+  stopSound();
+});
+onEvent("MOS.Music.Song.1", "click", function( ) {
+  playSound("music1-mos.mp3", false);
+});
+
