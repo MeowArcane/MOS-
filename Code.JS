@@ -2,7 +2,7 @@
 var Version = 0;
 var Subversion = 2;
 var Subsubversion = 0;
-var VersionText = ((((((("Version " + Version) + ".") + Subversion) + ".") + Subsubversion) + "\n Build ") + "10") + "";
+var VersionText = ((((((("Version " + Version) + ".") + Subversion) + ".") + Subsubversion) + "\n Build ") + "11") + "";
 var Beta = 1;
 var SCR = "MOS.Boot";
 console.log("Korishmo Technology Pre-release Operating System Modular-OS " + Version + "."+Subversion+"."+Subsubversion);
@@ -259,4 +259,7 @@ onEvent("MOS.Music.Song.Stop", "click", function( ) {
 });
 onEvent("MOS.Music.Song.1", "click", function( ) {
   playSound("music1-mos.mp3", false);
+});
+onEvent("MOS.Music.Song.2", "click", function( ) {
+  playSound("music2-mos.mp3", false);
 });
