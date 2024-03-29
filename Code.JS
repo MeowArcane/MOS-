@@ -2,11 +2,17 @@
 var Version = 0;
 var Subversion = 2;
 var Subsubversion = 0;
-var VersionText = ((((((("Version " + Version) + ".") + Subversion) + ".") + Subsubversion) + "\n Build ") + "11") + "";
+var Subsubsubversion = 3;
+var VersionText = ((((((("Version " + Version) + ".") + Subversion) + ".") + Subsubversion + "." + Subsubsubversion) + "\n Build ") + "15") + "";
+var MusicID = 2;
+var Apps = ["Settings", "App Store"];
 var Beta = 1;
+var OOSHome = "";
+var OOSTerminalSetUp = 0;
+var OOSTerminal = "";
+var ISOOS = 0;
+var OOSSetUp = 0;
 var SCR = "MOS.Boot";
-console.log("Korishmo Technology Pre-release Operating System Modular-OS " + Version + "."+Subversion+"."+Subsubversion);
-console.log("This tool is only for developers, if someone asked to type something here, it could make your device unbootable");
 //DO NOT MODIFY!
 function Supersetscreen(scr) {
   SCR = scr;
@@ -25,6 +31,12 @@ timedLoop(100, function() {
 function MOSBoot() {
   setTimeout(function() {
     Supersetscreen("MOS.Homescreen");
+    console.log("Korishmo Technology Pre-release Operating System Modular-OS " + Version + "."+Subversion+"."+Subsubversion);
+    console.log("This tool is only for developers, if someone asked to type something here, it could make your device unbootable");
+    showElement("MOS.Homescreen.icon.1");
+    showElement("MOS.Homescreen.icon.2");
+    setProperty("MOS.Homescreen.icon.1", "image", "icon://fa-cogs");
+    setProperty("MOS.Homescreen.icon.2", "image", "icon://fa-download");
   }, 370);
 }
 //Open Apps (Icons)
@@ -41,33 +53,16 @@ onEvent("MOS.Homescreen.icon.3", "click", function( ) {
 onEvent("MOS.Settings.Bar.Back", "click", function( ) {
   Supersetscreen("MOS.Homescreen");
 });
-onEvent("MOS.Appstore.Bar.Back", "click", function( ) {
-  Supersetscreen("MOS.Homescreen");
+onEvent("MOS.Settings.OOSS1.SetUp", "click", function( ) {
+  Supersetscreen("MOS.Settings.OOSManager");
 });
 onEvent("MOS.Music.Bar.Back", "click", function( ) {
   Supersetscreen("MOS.Homescreen");
 });
 //App menus (Settings)
-onEvent("MOS.Settings.Button.1", "click", function( ) {
-  Supersetscreen("MOS.Settings.Wallpapers");
-});
-onEvent("MOS.Settings.Advanced.Button.1", "click", function( ) {
-  Supersetscreen("MOS.Settings.Customizer");
-});
-onEvent("MOS.Settings.Button.3", "click", function( ) {
-  Supersetscreen("MOS.Settings.Advanced");
-});
-onEvent("MOS.Settings.Advanced.Bar.Back", "click", function( ) {
-  Supersetscreen("MOS.Settings");
-});
-onEvent("MOS.Settings.Advanced.Button.2", "click", function( ) {
-  Supersetscreen("MOS.Settings.OtherOSSetup0");
-});
-onEvent("MOS.Settings.OOSS1.SetUp", "click", function( ) {
-  Supersetscreen("MOS.Settings.OOSManager");
-});
 onEvent("MOS.Settings.OOSManager.Bar.Back", "click", function( ) {
   Supersetscreen("MOS.Settings.OOSManager");
+  OOSHome = getText("MOS.HOS");
 });
 onEvent("MOS.Settings.OOS.Bar.Back", "click", function( ) {
   Supersetscreen("MOS.Settings.Advanced");
@@ -80,6 +75,18 @@ onEvent("MOS.Settings.OOSS1.Bar.Back", "click", function( ) {
 });
 onEvent("MOS.Settings.Customizer.Bar.Back", "click", function( ) {
   Supersetscreen("MOS.Settings.Advanced");
+});
+onEvent("MOS.Settings.Button.1", "click", function( ) {
+  Supersetscreen("MOS.Settings.Wallpapers");
+});
+onEvent("MOS.Settings.Advanced.Button.1", "click", function( ) {
+  Supersetscreen("MOS.Settings.Customizer");
+});
+onEvent("MOS.Settings.Button.3", "click", function( ) {
+  Supersetscreen("MOS.Settings.Advanced");
+});
+onEvent("MOS.Settings.Advanced.Bar.Back", "click", function( ) {
+  Supersetscreen("MOS.Settings");
 });
 onEvent("MOS.Settings.Button.2", "click", function( ) {
   Supersetscreen("MOS.Settings.About");
@@ -152,8 +159,8 @@ onEvent("MOS.Settings.Modules.Mod1.Remove", "click", function( ) {
   hideElement("MOS.Settings.Modules.Mod1");
 });
 onEvent("MOS.Settings.Modules.Mod2.Remove", "click", function( ) {
-  hideElement("MOS.Settings.Modules.Mod1.Remove");
-  hideElement("MOS.Settings.Modules.Mod1");
+  hideElement("MOS.Settings.Modules.Mod2.Remove");
+  hideElement("MOS.Settings.Modules.Mod2");
 });
 onEvent("MOS.Settings.Modules.Mod3.Remove", "click", function( ) {
   hideElement("MOS.Settings.Modules.Mod3.Remove");
@@ -191,7 +198,11 @@ function wallpaper(img) {
   setProperty("MOS.Settings.Advanced", "image", img);
   setProperty("MOS.Settings.Customizer", "image", img);
   setProperty("MOS.Settings.Wallpapers", "image", img);
-  setProperty("MOS.Settings.Wallpapers", "image", img);
+  setProperty("MOS.Settings.OOSError", "image", img);
+  setProperty("MOS.Settings.OOSManager", "image", img);
+  setProperty("MOS.Settings.OtherOSSetup0", "image", img);
+  setProperty("MOS.Settings.OtherOSSetup1", "image", img);
+  setProperty("MOS.Settings.Modules", "image", img);
 }
 function textScale(fs) {
   setProperty("MOS.Settings.Customizer.Label.1", "font-size", fs);
@@ -238,20 +249,75 @@ function iconSize(size) {
   setProperty("MOS.Homescreen.icon.8", "height", size);
 }
 //App.settings.oosmanager
+onEvent("MOS.Settings.Advanced.Button.2", "click", function( ) {
+if (OOSSetUp == 0) {
+  Supersetscreen("MOS.Settings.OtherOSSetup0");
+} else {
+  Supersetscreen("MOS.Settings.OOSManager");
+}
+});
+onEvent("MOS.Settings.OOS.SetUp", "click", function( ) {
+Supersetscreen("MOS.Settings.OtherOSSetup1");
+});
+onEvent("MOS.Settings.OOSS1.SetUp", "click", function( ) {
+Supersetscreen("MOS.Settings.OOSManager");
+OOSHome = getText("MOS.HOS");
+OOSSetUp = 1;
+});
+onEvent("MOS.Settings.OOSManager.Bar.Back", "click", function( ) {
+Supersetscreen("MOS.Settings.Advanced");
+});
+onEvent("MOS.Settings.OOSS1.Bar.Back", "click", function( ) {
+Supersetscreen("MOS.Settings.Advanced");
+});
+onEvent("MOS.Settings.OOS.Bar.Back", "click", function( ) {
+Supersetscreen("MOS.Settings.Advanced");
+});
+function ToOOSHome() {
+  Supersetscreen(OOSHome);
+}
 onEvent("MOS.Settings.OOSManager.RunOS", "click", function( ) {
-Supersetscreen(getText("MOS.HOS"));
+ToOOSHome();
+});
+onEvent("MOS.Settings.OOSManager.Help", "click", function( ) {
+Supersetscreen("MOS.Settings.OOSError");
+setText("MOS.Settings.OOSErr.Err", "WIP");
+});
+onEvent("MOS.Settings.OOSErr.OK", "click", function( ) {
+Supersetscreen("MOS.Settings.OOSManager");
+});
+function ToOOSTerminal() {
+  if (OOSTerminalSetUp == 0) {
+    Supersetscreen("MOS.Settings.OOSError");
+    setText("MOS.Settings.OOSErr.Err", "You haven't set up terminal yet!");
+  } else {
+    Supersetscreen(OOSTerminal);
+  }
+}
+onEvent("MOS.Settings.OOSManager.Terminal", "click", function( ) {
+	ToOOSTerminal();
+});
+onEvent("MOS.Settings.OOSErr.OK", "click", function( ) {
+	Supersetscreen("MOS.Settings.OOSManager");
 });
 //App.appstore
 onEvent("MOS.Appstore.Music.Install", "click", function( ) {
   showElement("MOS.Appstore.Music.Uninstall");
   hideElement("MOS.Appstore.Music.Install");
   showElement("MOS.Homescreen.icon.3");
+  appendItem(Apps, "Music");
+  setProperty("MOS.Homescreen.icon.3", "image", "icon://fa-music");
 });
 onEvent("MOS.Appstore.Music.Uninstall", "click", function( ) {
   hideElement("MOS.Homescreen.icon.3");
   showElement("MOS.Appstore.Music.Install");
   hideElement("MOS.Appstore.Music.Uninstall");
   stopSound();
+  removeItem(Apps, Apps.length - 1);
+  setProperty("MOS.Homescreen.icon.3", "image", "icon://fa-question");
+});
+onEvent("MOS.Appstore.Bar.Back", "click", function( ) {
+  Supersetscreen("MOS.Homescreen");
 });
 //App.music
 onEvent("MOS.Music.Song.Stop", "click", function( ) {
