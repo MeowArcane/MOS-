@@ -356,7 +356,7 @@ onEvent("MOS.Settings.Advanced.Button.4", "click", function( ) {
 });
 //Sets the language to OOS
 function lang(id) {
-  if (id == 3 == 0) {
+  if (id == 0) {
     //English
     setText("MOS.Settings.Languages.Background", "Languages");
     setText("MOS.Settings.Button.1", "Wallpapers");
@@ -478,6 +478,37 @@ function lang(id) {
     setText("MOS.Appstore.Background", "App Store");
     setText("MOS.Appstore.Music.Text.1", "ミュージック");
     setText("MOS.Music.Background", "ミュージック");
+  } else if (id == 4) {
+    //Dock 2
+    setText("MOS.Settings.Languages.Background", "кавеР;п");
+    setText("MOS.Settings.Button.1", "титеР;п");
+    setText("MOS.Settings.Button.2", "кити");
+    setText("MOS.Settings.Button.3", "Шапа");
+    setText("MOS.Settings.Customizer.Background", "пиму;пе");
+    setText("MOS.Settings.Customizer.Label.1", "муР векам");
+    setText("MOS.Settings.Customizer.Label.2", "титеР мапе");
+    setText("MOS.Settings.Customizer.Label.3", "муР векам");
+    setText("MOS.Settings.Modules.Background", "патан;п");
+    setText("MOS.Settings.Advanced.Background", "тува тета;п");
+    setText("MOS.Settings.Advanced.Button.1", "Шапа пиму;пвоу");
+    setText("MOS.Settings.Advanced.Button.2", "мамин вемон;п");
+    setText("MOS.Settings.Advanced.Button.3", "патан;п");
+    setText("MOS.Settings.Advanced.Button.4", "кавеР;п");
+    setText("MOS.Settings.Modules.Mod1", "титеР;п");
+    setText("MOS.Settings.Modules.Mod2", "мамин вемон");
+    setText("MOS.Settings.Modules.Mod3", "вене;п мивам");
+    setText("MOS.Settings.Modules.Mod4", "вемон мивам");
+    setText("MOS.Settings.Modules.Mod5", "патан миШен;пе");
+    setText("MOS.Appstore.Music.Text.1", "вемим");
+    setText("MOS.Music.Song.Stop", "патин вемим");
+    setText("MOS.Settings.OOSErr.Background", "мамин вемон;п (нена)");
+    setText("MOS.Settings.OOSManager.Background", "мамин вемон;п (нена)");
+    setText("MOS.Settings.OOS.Background", "мамин вемон;п (нена)");
+    setText("MOS.Settings.OOSS1.Background", "мамин вемон;п (нена)");
+    setText("MOS.Appstore.Background", "мивам нини");
+    setText("MOS.Appstore.Music.Text.1", "вемим");
+    setText("MOS.Music.Background", "вемим");
+    setText("MOS.Settings.Background", "вене;п");
   } else {
     
   }
