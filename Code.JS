@@ -3,16 +3,18 @@ var Version = 0;
 var Subversion = 2;
 var Subsubversion = 3;
 var Subsubsubversion = 0;
+var PlusVersion = 1;
 var VersionText = ((((((("Version " + Version) + ".") + Subversion) + ".") + Subsubversion + "." + Subsubsubversion) + "\n Build ") + "15") + "";
-var MusicID = 2;
-var Apps = ["Settings", "App Store"];
+var MusicInstalled = 0;
+var PaintInstalled = 0;
 var Beta = 1;
 var OOSHome = "";
 var OOSTerminalSetUp = 0;
 var OOSTerminal = "";
-var ISOOS = 0;
 var OOSSetUp = 0;
 var SCR = "MOS.Boot";
+var Batt = 100;
+var is24hr = 0;
 //DO NOT MODIFY!
 function Errservice(errcode) {
   if (errcode == 1) {
@@ -26,20 +28,38 @@ function Errservice(errcode) {
   } else if ((errcode == 5)) {
     return "App doesn't exist";
   } else if ((errcode == 6)) {
-    return "Missing data";
+    return "Required data non-existent";
   } else if ((errcode == 7)) {
     return "Not avaliable";
   }
 }
+var lid = getProperty("MOS.Language", "index") + -1;
 function Supersetscreen(scr) {
   SCR = scr;
   setScreen(scr);
 }
 //Boot Modular-OS 
 MOSBoot();
+timedLoop(randomNumber(50000, 80000), function() {
+  Batt = Batt - 1;
+  if (Batt == 0) {
+    setScreen("MOS.Dead");
+  }
+});
 timedLoop(100, function() {
-  setText("MOS.Homescreen.Time", (SOA.gettime() + "                      ") + SOA.getdate());
-  lang(getProperty("MOS.Language", "index"));
+  if (getProperty("MOS.Settings.Customizer.24hour", "index") == 1) {
+    is24hr = 1;
+  } else {
+    is24hr = 0;
+  }
+  if (is24hr != 1) {
+    setText("MOS.Homescreen.Time", (SOA.gettime() + "                ") + SOA.getdate());
+  } else {
+    setText("MOS.Homescreen.Time", (SOA.gettime(1) + "                ") + SOA.getdate());
+  }
+  lid = getProperty("MOS.Language", "index") + 0;
+  lang(lid);
+  setText("MOS.Homescreen.Batt", Batt + "%");
   if (Beta == 1) {
     setText("MOS.Settings.About.Background", ("About \n \n \n" + VersionText) + "\n Beta Build .idex-1" + "\n \n This OS is made with open source projects like SOA!");
   } else {
@@ -323,16 +343,31 @@ onEvent("MOS.Appstore.Music.Install", "click", function( ) {
   showElement("MOS.Appstore.Music.Uninstall");
   hideElement("MOS.Appstore.Music.Install");
   showElement("MOS.Homescreen.icon.3");
-  appendItem(Apps, "Music");
   setProperty("MOS.Homescreen.icon.3", "image", "icon://fa-music");
+  MusicInstalled = 1;
 });
 onEvent("MOS.Appstore.Music.Uninstall", "click", function( ) {
   hideElement("MOS.Homescreen.icon.3");
   showElement("MOS.Appstore.Music.Install");
   hideElement("MOS.Appstore.Music.Uninstall");
   stopSound();
-  removeItem(Apps, Apps.length - 1);
   setProperty("MOS.Homescreen.icon.3", "image", "icon://fa-question");
+  MusicInstalled = 0;
+});
+onEvent("MOS.Appstore.Paint.Install", "click", function( ) {
+  showElement("MOS.Appstore.Music.Uninstall");
+  hideElement("MOS.Appstore.Music.Install");
+  showElement("MOS.Homescreen.icon.3");
+  setProperty("MOS.Homescreen.icon.4", "image", "icon://fa-music");
+  MusicInstalled = 1;
+});
+onEvent("MOS.Appstore.Paint.Uninstall", "click", function( ) {
+  hideElement("MOS.Homescreen.icon.3");
+  showElement("MOS.Appstore.Music.Install");
+  hideElement("MOS.Appstore.Music.Uninstall");
+  stopSound();
+  setProperty("MOS.Homescreen.icon.4", "image", "icon://fa-question");
+  MusicInstalled = 0;
 });
 onEvent("MOS.Appstore.Bar.Back", "click", function( ) {
   Supersetscreen("MOS.Homescreen");
